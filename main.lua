@@ -927,7 +927,9 @@ function loadconfig()
 	players = 1
 	defaultconfig()
 	
-	if not love.filesystem.exists("options.txt") then
+	local optionsfileinfo = love.filesystem.getInfo("options.txt")
+	
+	if optionsfileinfo == nil then
 		return
 	end
 	
@@ -1007,7 +1009,8 @@ function loadconfig()
 		elseif s2[1] == "mouseowner" then
 			mouseowner = tonumber(s2[2])
 		elseif s2[1] == "mappack" then
-			if love.filesystem.exists("mappacks/" .. s2[2] .. "/") then
+			mappackfileinfo = love.filesystem.getInfo("mappacks/" .. s2[2] .. "/")
+			if mappackfileinfo ~= nil then
 				mappack = s2[2]
 			end
 		elseif s2[1] == "gamefinished" then
