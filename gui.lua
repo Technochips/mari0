@@ -59,11 +59,11 @@ function guielement:init(...)
 		self.height = arg[8] or 1
 		self.width = arg[9] or string.len(self.text)*8
 		
-		self.bordercolorhigh = {255, 255, 255}
-		self.bordercolor = {127, 127, 127}
+		self.bordercolorhigh = {1, 1, 1}
+		self.bordercolor = {127/255, 127/255, 127/255}
 		
 		self.fillcolor = {0, 0, 0}
-		self.textcolor = {255, 255, 255}
+		self.textcolor = {1, 1, 1}
 	elseif arg[1] == "scrollbar" then --scrollbar(x, y, yrange, width, height, start)
 		self.type = arg[1]
 		self.x = arg[2]
@@ -80,9 +80,9 @@ function guielement:init(...)
 			self.xrange = self.range - self.width
 		end	
 		
-		self.backgroundcolor = {127, 127, 127}
-		self.bordercolorhigh = {255, 255, 255}
-		self.bordercolor = {127, 127, 127}
+		self.backgroundcolor = {127/255, 127/255, 127/255}
+		self.bordercolorhigh = {1, 1, 1}
+		self.bordercolor = {127/255, 127/255, 127/255}
 		
 		self.fillcolor = {0, 0, 0}
 	elseif arg[1] == "input" then --input(x, y, width, enterfunc, start, maxlength)
@@ -101,11 +101,11 @@ function guielement:init(...)
 		self.cursorpos = string.len(self.value)+1
 		self.offset = 0
 		
-		self.bordercolorhigh = {255, 255, 255}
-		self.bordercolor = {127, 127, 127}
+		self.bordercolorhigh = {1, 1, 1}
+		self.bordercolor = {127/255, 127/255, 127/255}
 		
 		self.fillcolor = {0, 0, 0}
-		self.textcolor = {255, 255, 255}
+		self.textcolor = {1, 1, 1}
 	end
 end
 
@@ -138,7 +138,7 @@ function guielement:update(dt)
 end
 
 function guielement:draw()
-	love.graphics.setColor(255, 255, 255)
+	love.graphics.setColor(1, 1, 1)
 	if self.type == "checkbox" then
 		local quad = 1
 		if self.var == true then
@@ -153,9 +153,9 @@ function guielement:draw()
 	elseif self.type == "dropdown" then
 		local high = self:inhighlight(love.mouse.getPosition())
 	
-		love.graphics.setColor(127, 127, 127)
+		love.graphics.setColor(127/255, 127/255, 127/255)
 		if high then
-			love.graphics.setColor(255, 255, 255)
+			love.graphics.setColor(1, 1, 1)
 		end
 		
 		love.graphics.rectangle("fill", self.x*scale, self.y*scale, (3+self.width*8)*scale, 11*scale)
@@ -164,17 +164,17 @@ function guielement:draw()
 		love.graphics.setColor(0, 0, 0)
 		love.graphics.rectangle("fill", (self.x+1)*scale, (self.y+1)*scale, (1+self.width*8)*scale, 9*scale)
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		if self.extended then
-			love.graphics.setColor(127, 127, 127)
+			love.graphics.setColor(127/255, 127/255, 127/255)
 		end
 			
 		properprint(self.entries[self.var], (self.x+1)*scale, (self.y+2)*scale)
 	
 		if self.extended then
-			love.graphics.setColor(127, 127, 127)
+			love.graphics.setColor(127/255, 127/255, 127/255)
 			if high then
-				love.graphics.setColor(255, 255, 255)
+				love.graphics.setColor(1, 1, 1)
 			end
 			
 			love.graphics.rectangle("fill", self.x*scale, (self.y+11)*scale, (13+self.width*8)*scale, (10*#self.entries)*scale)
@@ -183,7 +183,7 @@ function guielement:draw()
 				if high ~= i then
 					love.graphics.setColor(0, 0, 0)
 					love.graphics.rectangle("fill", (self.x+1)*scale, (self.y+1+i*10)*scale, (11+self.width*8)*scale, 9*scale)
-					love.graphics.setColor(255, 255, 255)
+					love.graphics.setColor(1, 1, 1)
 					properprint(self.entries[i], (self.x+1)*scale, (self.y+2+10*i)*scale)
 				else
 					love.graphics.setColor(0, 0, 0)
@@ -195,20 +195,20 @@ function guielement:draw()
 	elseif self.type == "rightclick" then
 		local high = self:inhighlight(love.mouse.getPosition())
 	
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		
 		love.graphics.rectangle("fill", self.x*scale, self.y*scale, (3+self.width*8)*scale, 11*scale)
 		
 		love.graphics.setColor(0, 0, 0)
 		love.graphics.rectangle("fill", (self.x+1)*scale, (self.y+1)*scale, (1+self.width*8)*scale, 9*scale)
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 			
 		properprint(self.entries[1], (self.x+1)*scale, (self.y+2)*scale)
 	
-		love.graphics.setColor(127, 127, 127)
+		love.graphics.setColor(127/255, 127/255, 127/255)
 		if high then
-			love.graphics.setColor(255, 255, 255)
+			love.graphics.setColor(1, 1, 1)
 		end
 		
 		if self.direction == "down" then
@@ -220,22 +220,22 @@ function guielement:draw()
 		for i = 2, #self.entries do
 			if high ~= i then
 				if self.var == self.entries[i] then
-					love.graphics.setColor(0, 127, 0)
+					love.graphics.setColor(0, 127/255, 0)
 				else
 					love.graphics.setColor(0, 0, 0)
 				end
 				if self.direction == "down" then
 					love.graphics.rectangle("fill", (self.x+1)*scale, (self.y+1+(i-1)*10)*scale, (1+self.width*8)*scale, 9*scale)
-					love.graphics.setColor(255, 255, 255)
+					love.graphics.setColor(1, 1, 1)
 					properprint(self.entries[i], (self.x+1)*scale, (self.y+2+10*(i-1))*scale)
 				else
 					love.graphics.rectangle("fill", (self.x+1)*scale, (self.y+1-(i-1)*10)*scale, (1+self.width*8)*scale, 9*scale)
-					love.graphics.setColor(255, 255, 255)
+					love.graphics.setColor(1, 1, 1)
 					properprint(self.entries[i], (self.x+1)*scale, (self.y+2-10*(i-1))*scale)
 				end
 			else
 				if self.var == self.entries[i] then
-					love.graphics.setColor(0, 127, 0)
+					love.graphics.setColor(0, 127/255, 0)
 				else
 					love.graphics.setColor(0, 0, 0)
 				end
@@ -331,7 +331,7 @@ function guielement:draw()
 			end
 		end
 	end
-	love.graphics.setColor(255, 255, 255)
+	love.graphics.setColor(1, 1, 1)
 end
 
 function guielement:click(x, y, button)

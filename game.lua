@@ -14,6 +14,8 @@ function game_load(suspended)
 	
 	--LINK STUFF
 	
+	pausedsounds = {}
+	
 	mariocoincount = 0
 	marioscore = 0
 	
@@ -1434,7 +1436,7 @@ function game_draw()
 											local yadd = 0
 											for i = 1, #v.hats do
 												if v.hats[i] == 1 then
-													love.graphics.setColor(v.colors[1])
+													love.graphics.setColor(v.colors[1][1]/255,v.colors[1][2]/255,v.colors[1][3]/255)
 												else
 													love.graphics.setColor(1, 1, 1)
 												end
@@ -2663,7 +2665,7 @@ function game_keypressed(key, unicode)
 		elseif (key == "return" or key == "enter" or key == "kpenter" or key == "space") then
 			if pausemenuoptions[pausemenuselected] == "resume" then
 				pausemenuopen = false
-				love.audio.resume()
+				love.audio.play(pausedsounds)
 			elseif pausemenuoptions[pausemenuselected] == "suspend" then
 				suspendprompt = true
 				pausemenuselected2 = 1
@@ -2676,7 +2678,7 @@ function game_keypressed(key, unicode)
 			end
 		elseif key == "escape" then
 			pausemenuopen = false
-			love.audio.resume()
+			love.audio.play(pausedsounds)
 		elseif (key == "right" or key == "d") then
 			if pausemenuoptions[pausemenuselected] == "volume" then
 				if volume < 1 then
@@ -2743,7 +2745,7 @@ function game_keypressed(key, unicode)
 			return
 		elseif not editormode and not everyonedead then
 			pausemenuopen = true
-			love.audio.pause()
+			pausedsounds = love.audio.pause()
 			playsound(pausesound)
 		end
 	end

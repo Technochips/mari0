@@ -1233,7 +1233,7 @@ function love.keypressed(key, unicode)
 		if key == konami[konamii] then
 			konamii = konamii + 1
 			if konamii == #konami+1 then
-				if konamisound:isStopped() then
+				if not konamisound:isPlaying() then
 					playsound(konamisound)
 				end
 				gamefinished = true
@@ -1432,7 +1432,7 @@ function getaveragecolor(imgdata, cox, coy)
 	for x = xstart, xstart+15 do
 		for y = ystart, ystart+15 do
 			local pr, pg, pb, a = imgdata:getPixel(x, y)
-			if a > 127 then
+			if a > 0.5 then
 				r, g, b = r+pr, g+pg, b+pb
 				count = count + 1
 			end
