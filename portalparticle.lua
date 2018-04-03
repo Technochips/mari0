@@ -43,6 +43,6 @@ end
 function portalparticle:draw()
 	local r, g, b = unpack(self.color)
 	local a = (1 - self.timer/portalparticleduration) * 255
-	love.graphics.setColor(r, g, b, a)
+	love.graphics.setColor(r/255, g/255, b/255, a/255)
 	love.graphics.draw(portalparticleimg, math.floor((self.x-xscroll)*16*scale), math.floor((self.y-.5)*16*scale), 0, scale, scale, .5, .5)
 end

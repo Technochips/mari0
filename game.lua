@@ -19,7 +19,7 @@ function game_load(suspended)
 	
 	--get mariolives
 	mariolivecount = 3
-	if love.filesystem.exists("mappacks/" .. mappack .. "/settings.txt") then
+	if love.filesystem.getInfo("mappacks/" .. mappack .. "/settings.txt") ~= nil then
 		local s = love.filesystem.read( "mappacks/" .. mappack .. "/settings.txt" )
 		local s1 = s:split("\n")
 		for j = 1, #s1 do
@@ -79,7 +79,7 @@ function game_load(suspended)
 	
 	--add custom tiles
 	local bla = love.timer.getTime()
-	if love.filesystem.exists("mappacks/" .. mappack .. "/tiles.png") then
+	if love.filesystem.getInfo("mappacks/" .. mappack .. "/tiles.png") ~= nil then
 		customtiles = true
 		customtilesimg = love.graphics.newImage("mappacks/" .. mappack .. "/tiles.png")
 		local imgwidth, imgheight = customtilesimg:getWidth(), customtilesimg:getHeight()
@@ -115,10 +115,10 @@ function game_load(suspended)
 	end
 	
 	custommusic = false
-	if love.filesystem.exists("mappacks/" .. mappack .. "/music.ogg") then
+	if love.filesystem.getInfo("mappacks/" .. mappack .. "/music.ogg") ~= nil then
 		custommusic = "mappacks/" .. mappack .. "/music.ogg"
 		music:load(custommusic)
-	elseif love.filesystem.exists("mappacks/" .. mappack .. "/music.mp3") then
+	elseif love.filesystem.getInfo("mappacks/" .. mappack .. "/music.mp3") ~= nil then
 		custommusic = "mappacks/" .. mappack .. "/music.mp3"
 		music:load(custommusic)
 	end
@@ -1049,7 +1049,7 @@ function game_draw()
 				local x = (width*16)/players/2 + (width*16)/players*(i-1)
 				if mariolivecount ~= false then
 					properprint("p" .. i .. " * " .. mariolives[i], (x-string.len("p" .. i .. " * " .. mariolives[i])*4+4)*scale, 25*scale)
-					love.graphics.setColor(mariocolors[i][1]/255, mariocolors[i][2]/255, mariocolors[i][3]/255)
+					love.graphics.setColor(mariocolors[i][1][1]/255, mariocolors[i][1][2]/255, mariocolors[i][1][3]/255)
 					love.graphics.rectangle("fill", (x-string.len("p" .. i .. " * " .. mariolives[i])*4-3)*scale, 25*scale, 7*scale, 7*scale)
 					love.graphics.setColor(1, 1, 1, 1)
 				end
@@ -1337,7 +1337,7 @@ function game_draw()
 									local yadd = 0
 									for i = 1, #v.hats do
 										if v.hats[i] == 1 then
-											love.graphics.setColor(v.colors[1])
+											love.graphics.setColor(v.colors[1][1] / 255, v.colors[1][2] / 255, v.colors[1][3] / 255)
 										else
 											love.graphics.setColor(1, 1, 1)
 										end
@@ -1393,7 +1393,7 @@ function game_draw()
 								if type(v.graphic) == "table" then
 									for k = 1, #v.graphic do
 										if v.colors[k] then
-											love.graphics.setColor(v.colors[k])
+											love.graphics.setColor(v.colors[k][1]/255,v.colors[k][2]/255,v.colors[k][3]/255)
 										else
 											love.graphics.setColor(1, 1, 1)
 										end
@@ -1542,7 +1542,7 @@ function game_draw()
 					love.graphics.setColor(1, 1, 1, 1)
 				end
 				
-				love.graphics.setColor(unpack(objects["player"][i].portal1color))
+				love.graphics.setColor(objects["player"][i].portal1color[1]/255, objects["player"][i].portal1color[2]/255, objects["player"][i].portal1color[3]/255)
 				love.graphics.draw(portalimage, portal1quad[portalframe], math.floor(((objects["player"][i].portal1X-1-xscroll)*16+offsetx)*scale), math.floor(((objects["player"][i].portal1Y-1)*16+offsety)*scale), rotation, scale, scale, 8, 8)
 			end
 			
@@ -1569,7 +1569,7 @@ function game_draw()
 					love.graphics.setColor(1, 1, 1, 1)
 				end
 				
-				love.graphics.setColor(unpack(objects["player"][i].portal2color))
+				love.graphics.setColor(objects["player"][i].portal2color[1]/255, objects["player"][i].portal2color[2]/255, objects["player"][i].portal2color[3]/255)
 				love.graphics.draw(portalimage, portal2quad[portalframe], math.floor(((objects["player"][i].portal2X-1-xscroll)*16+offsetx)*scale), math.floor(((objects["player"][i].portal2Y-1)*16+offsety)*scale), rotation, scale, scale, 8, 8)
 			end
 		end		
@@ -2236,7 +2236,7 @@ end
 
 function loadmap(filename)
 	print("Loading " .. "mappacks/" .. mappack .. "/" .. filename .. ".txt")
-	if love.filesystem.exists("mappacks/" .. mappack .. "/" .. filename .. ".txt") == false then
+	if love.filesystem.getInfo("mappacks/" .. mappack .. "/" .. filename .. ".txt") == nil then
 		print("mappacks/" .. mappack .. "/" .. filename .. ".txt not found!")
 		return false
 	end

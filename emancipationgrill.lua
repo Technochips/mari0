@@ -99,9 +99,9 @@ function emancipationgrill:draw()
 			parstartright = math.floor((self.endx-1-xscroll)*16*scale)
 			love.graphics.setScissor(parstartleft, ((self.y-1)*16-2)*scale, self.range - emanceimgwidth*scale, scale*4)
 			
-			love.graphics.setColor(unpack(emancelinecolor))
+			love.graphics.setColor(emancelinecolor[1]/255,emancelinecolor[2]/255,emancelinecolor[3]/255,emancelinecolor[4]/255)
 			love.graphics.rectangle("fill", math.floor((self.startx-1-xscroll)*16*scale), ((self.y-1)*16-2)*scale, self.range, scale*4)
-			love.graphics.setColor(255, 255, 255)
+			love.graphics.setColor(1, 1, 1)
 			
 			for i, v in pairs(self.particles.i) do
 				local y = ((self.y-1)*16-self.particles.mod[i])*scale
@@ -124,9 +124,9 @@ function emancipationgrill:draw()
 			parstartdown = math.floor((self.endy-1)*16*scale)
 			love.graphics.setScissor(math.floor(((self.x-1-xscroll)*16+6)*scale), parstartup-8*scale, scale*4, self.range - emanceimgwidth*scale)
 			
-			love.graphics.setColor(unpack(emancelinecolor))
+			love.graphics.setColor(emancelinecolor[1]/255,emancelinecolor[2]/255,emancelinecolor[3]/255,emancelinecolor[4]/255)
 			love.graphics.rectangle("fill", math.floor(((self.x-1-xscroll)*16+6)*scale), parstartup-8*scale, scale*4, self.range - emanceimgwidth*scale)
-			love.graphics.setColor(255, 255, 255)
+			love.graphics.setColor(1, 1, 1)
 			
 			for i, v in pairs(self.particles.i) do
 				local x = ((self.x-1-xscroll)*16-self.particles.mod[i]+9)*scale

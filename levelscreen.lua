@@ -105,7 +105,7 @@ end
 
 function levelscreen_draw()
 	if levelscreentimer < blacktime - blacktimesub and levelscreentimer > blacktimesub then
-		love.graphics.setColor(255, 255, 255, 255)
+		love.graphics.setColor(1, 1, 1, 1)
 		
 		if gamestate == "levelscreen" then
 			properprint("world " .. marioworld .. "-" .. mariolevel, (width/2*16)*scale-40*scale, 72*scale - (players-1)*6*scale)
@@ -115,7 +115,7 @@ function levelscreen_draw()
 				local y = (97 + (i-1)*20 - (players-1)*8)*scale
 				
 				for j = 1, 3 do
-					love.graphics.setColor(unpack(mariocolors[i][j]))
+					love.graphics.setColor(mariocolors[i][j][1] / 255, mariocolors[i][j][2] / 255, mariocolors[i][j][3] / 255)
 					love.graphics.draw(skinpuppet[j], x, y, 0, scale, scale)
 				end
 		
@@ -125,16 +125,16 @@ function levelscreen_draw()
 				if #mariohats[i] > 1 or mariohats[i][1] ~= 1 then
 					local yadd = 0
 					for j = 1, #mariohats[i] do
-						love.graphics.setColor(255, 255, 255)
+						love.graphics.setColor(1, 1, 1)
 						love.graphics.draw(hat[mariohats[i][j]].graphic, x-5*scale, y-2*scale, 0, scale, scale, - hat[mariohats[i][j]].x + offsets[1], - hat[mariohats[i][j]].y + offsets[2] + yadd)
 						yadd = yadd + hat[mariohats[i][j]].height
 					end
 				elseif #mariohats[i] == 1 then
-					love.graphics.setColor(mariocolors[i][1])
+					love.graphics.setColor(mariocolors[i][1][1] / 255, mariocolors[i][1][2] / 255, mariocolors[i][1][3] / 255)
 					love.graphics.draw(hat[mariohats[i][1]].graphic, x-5*scale, y-2*scale, 0, scale, scale, - hat[mariohats[i][1]].x + offsets[1], - hat[mariohats[i][1]].y + offsets[2])
 				end
 			
-				love.graphics.setColor(255, 255, 255, 255)
+				love.graphics.setColor(1, 1, 1, 1)
 				
 				love.graphics.draw(skinpuppet[0], x, y, 0, scale, scale)
 				

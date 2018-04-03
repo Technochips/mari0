@@ -1158,7 +1158,7 @@ function suspendgame()
 end
 
 function continuegame()
-	if not love.filesystem.exists("suspend.txt") then
+	if love.filesystem.getInfo("suspend.txt") == nil then
 		return
 	end
 	
@@ -1570,7 +1570,7 @@ function loadcustombackground()
 		levelstring = levelstring .. "_" .. mariosublevel
 	end
 	
-	while love.filesystem.exists("mappacks/" .. mappack .. "/" .. levelstring .. "background" .. i .. ".png") do
+	while love.filesystem.getInfo("mappacks/" .. mappack .. "/" .. levelstring .. "background" .. i .. ".png") ~= nil do
 		custombackgroundimg[i] = love.graphics.newImage("mappacks/" .. mappack .. "/" .. levelstring .. "background" .. i .. ".png")
 		custombackgroundwidth[i] = custombackgroundimg[i]:getWidth()/16
 		custombackgroundheight[i] = custombackgroundimg[i]:getHeight()/16
@@ -1578,7 +1578,7 @@ function loadcustombackground()
 	end
 	
 	if #custombackgroundimg == 0 then
-		while love.filesystem.exists("mappacks/" .. mappack .. "/background" .. i .. ".png") do
+		while love.filesystem.getInfo("mappacks/" .. mappack .. "/background" .. i .. ".png") ~= nil do
 			custombackgroundimg[i] = love.graphics.newImage("mappacks/" .. mappack .. "/background" .. i .. ".png")
 			custombackgroundwidth[i] = custombackgroundimg[i]:getWidth()/16
 			custombackgroundheight[i] = custombackgroundimg[i]:getHeight()/16

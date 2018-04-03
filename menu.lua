@@ -1341,7 +1341,7 @@ function loadonlinemappacks()
 	
 	local delete = {}
 	for i = 1, #onlinemappacklist do
-		if not love.filesystem.exists( "mappacks/" .. onlinemappacklist[i] .. "/version.txt") or not love.filesystem.exists( "mappacks/" .. onlinemappacklist[i] .. "/settings.txt") then
+		if love.filesystem.getInfo( "mappacks/" .. onlinemappacklist[i] .. "/version.txt") == nil or love.filesystem.getInfo( "mappacks/" .. onlinemappacklist[i] .. "/settings.txt") == nil then
 			table.insert(delete, i)
 		end
 	end
@@ -1361,7 +1361,7 @@ function loadonlinemappacks()
 	onlinemappackbackground = {}
 	
 	for i = 1, #onlinemappacklist do
-		if love.filesystem.exists( "mappacks/" .. onlinemappacklist[i] .. "/icon.png" ) then
+		if love.filesystem.getInfo( "mappacks/" .. onlinemappacklist[i] .. "/icon.png" ) ~= nil then
 			onlinemappackicon[i] = love.graphics.newImage("mappacks/" .. onlinemappacklist[i] .. "/icon.png")
 		else
 			onlinemappackicon[i] = nil
@@ -1370,7 +1370,7 @@ function loadonlinemappacks()
 		onlinemappackauthor[i] = nil
 		onlinemappackdescription[i] = nil
 		onlinemappackbackground[i] = nil
-		if love.filesystem.exists( "mappacks/" .. onlinemappacklist[i] .. "/settings.txt" ) then		
+		if love.filesystem.getInfo( "mappacks/" .. onlinemappacklist[i] .. "/settings.txt" ) ~= nil then		
 			local s = love.filesystem.read( "mappacks/" .. onlinemappacklist[i] .. "/settings.txt" )
 			local s1 = s:split("\n")
 			for j = 1, #s1 do
@@ -1452,7 +1452,7 @@ function downloadmappacks()
 	for i = 1, #maplist do
 		--check if current version is equal or newer
 		local version = 0
-		if love.filesystem.exists("mappacks/" .. maplist[i] .. "/version.txt") then
+		if love.filesystem.getInfo("mappacks/" .. maplist[i] .. "/version.txt") ~= nil then
 			local data = love.filesystem.read("mappacks/" .. maplist[i] .. "/version.txt")
 			if data then
 				version = tonumber(data)
@@ -1466,7 +1466,7 @@ function downloadmappacks()
 			currentdownload = i
 			downloadcount = #maplist
 			
-			if love.filesystem.exists("mappacks/" .. maplist[i] .. "/") then
+			if love.filesystem.getInfo("mappacks/" .. maplist[i] .. "/") ~= nil then
 				love.filesystem.remove("mappacks/" .. maplist[i] .. "/")
 			end
 			
@@ -1524,7 +1524,7 @@ function downloadmappacks()
 		
 		--Delete stuff and stuff.
 		if not success then
-			if love.filesystem.exists("mappacks/" .. maplist[i] .. "/") then
+			if love.filesystem.getInfo("mappacks/" .. maplist[i] .. "/") ~= nil then
 				local list = love.filesystem.getDirectoryItems("mappacks/" .. maplist[i] .. "/")
 				for j = 1, #list do
 					love.filesystem.remove("mappacks/" .. maplist[i] .. "/" .. list[j])
@@ -2161,7 +2161,7 @@ end
 
 function createmappack()
 	local i = 1
-	while love.filesystem.exists("mappacks/custom_mappack_" .. i .. "/") do
+	while love.filesystem.getInfo("mappacks/custom_mappack_" .. i .. "/") ~= nil do
 		i = i + 1
 	end
 	
@@ -2213,7 +2213,7 @@ function selectworld()
 	
 	selectworldexists = {}
 	for i = 1, 8 do
-		if love.filesystem.exists("mappacks/" .. mappack .. "/" .. i .. "-1.txt") then
+		if love.filesystem.getInfo("mappacks/" .. mappack .. "/" .. i .. "-1.txt") ~= nil then
 			selectworldexists[i] = true
 		end
 	end
