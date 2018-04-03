@@ -926,7 +926,7 @@ function mario:update(dt)
 			end
 		end
 		
-		--check for pipe pipe pipe²
+		--check for pipe pipe pipe\B2
 		if inmap(math.floor(self.x+30/16), math.floor(self.y+self.height+20/16)) and downkey(self.playernumber) and self.falling == false and self.jumping == false then
 			local t2 = map[math.floor(self.x+30/16)][math.floor(self.y+self.height+20/16)][2]
 			if t2 and entityquads[t2].t == "pipe" then

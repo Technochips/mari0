@@ -64,7 +64,7 @@ function love.load()
 	math.randomseed(os.time());math.random();math.random()
 	
 	love.graphics.clear()
-	love.graphics.setColor(100, 100, 100)
+	love.graphics.setColor(100/255, 100/255, 100/255)
 	loadingtexts = {"reticulating splines..", "loading..", "booting glados..", "growing potatoes..", "voting against acta..", "rendering important stuff..",
 					"baking cake..", "happy explosion day..", "raising coolness by 20 percent..", "yay facepunch..", "stabbing myself..", "sharpening knives..",
 					"tanaka, thai kick..", "loading game genie.."}
@@ -820,7 +820,7 @@ function love.draw()
 	
 	shaders:postdraw()
 	
-	love.graphics.setColor(255, 255,255)
+	love.graphics.setColor(1, 1,1)
 end
 
 function saveconfig()
@@ -927,9 +927,7 @@ function loadconfig()
 	players = 1
 	defaultconfig()
 	
-	local optionsfileinfo = love.filesystem.getInfo("options.txt")
-	
-	if optionsfileinfo == nil then
+	if love.filesystem.getInfo("options.txt") == nil then
 		return
 	end
 	
@@ -1009,8 +1007,7 @@ function loadconfig()
 		elseif s2[1] == "mouseowner" then
 			mouseowner = tonumber(s2[2])
 		elseif s2[1] == "mappack" then
-			local mappackfileinfo = love.filesystem.getInfo("mappacks/" .. s2[2] .. "/")
-			if mappackfileinfo ~= nil then
+			if love.filesystem.getInfo("mappacks/" .. s2[2] .. "/") ~= nil then
 				mappack = s2[2]
 			end
 		elseif s2[1] == "gamefinished" then

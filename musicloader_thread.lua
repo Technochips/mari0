@@ -26,8 +26,7 @@ end
 
 local function getfilename(name)
 	local filename = name:match("%.[mo][pg][3g]$") and name or musicpath:format(name) -- mp3 or ogg
-	local fileinfo = love.filesystem.getInfo(filename, "file")
-	if fileinfo ~= nil then
+	if love.filesystem.getInfo(filename, "file") ~= nil then
 		return filename
 	else
 		print(string.format("thread can't load \"%s\": not a file!", filename))

@@ -4,7 +4,7 @@ function game_load(suspended)
 	backgroundcolor[1] = {92, 148, 252}
 	backgroundcolor[2] = {0, 0, 0}
 	backgroundcolor[3] = {32, 56, 236}
-	love.graphics.setBackgroundColor(backgroundcolor[1])
+	love.graphics.setBackgroundColor(backgroundcolor[1][1] / 255, backgroundcolor[1][2] / 255, backgroundcolor[1][3] / 255)
 
 	scrollingstart = 12 --when the scrolling begins to set in (Both of these take the player who is the farthest on the left)
 	scrollingcomplete = 10 --when the scrolling will be as fast as mario can run
@@ -861,7 +861,7 @@ function game_draw()
 				local r, g, b = unpack(colortable[math.fmod(i-1, 6)+1])
 				local a = earthquake/rainboomearthquake*255
 				
-				love.graphics.setColor(r, g, b, a)
+				love.graphics.setColor(r/255, g/255, b/255, a/255)
 				
 				local alpha = math.rad((i/backgroundstripes + math.fmod(sunrot/5, 1)) * 360)
 				local point1 = {width*8*scale+300*scale*math.cos(alpha), 112*scale+300*scale*math.sin(alpha)}
@@ -873,7 +873,7 @@ function game_draw()
 			end
 		end
 		
-		love.graphics.setColor(255, 255, 255, 255)
+		love.graphics.setColor(1, 1, 1, 1)
 		--tremoooor!
 		if earthquake > 0 then
 			tremorx = (math.random()-.5)*2*earthquake
@@ -886,7 +886,7 @@ function game_draw()
 		love.graphics.setScissor(unpack(currentscissor))
 		xscroll = splitxscroll[split]
 	
-		love.graphics.setColor(255, 255, 255, 255)
+		love.graphics.setColor(1, 1, 1, 1)
 		
 		local xtodraw
 		if mapwidth < width+1 then
@@ -1007,16 +1007,16 @@ function game_draw()
 					
 					if #t > 1 and t[2] ~= "link" then
 						tilenumber = t[2]
-						love.graphics.setColor(255, 255, 255, 150)
+						love.graphics.setColor(1, 1, 1, 150/255)
 						love.graphics.draw(entityquads[tilenumber].image, entityquads[tilenumber].quad, math.floor((x-1-math.fmod(xscroll, 1))*16*scale), ((y-1)*16-8)*scale, 0, scale, scale)
-						love.graphics.setColor(255, 255, 255, 255)
+						love.graphics.setColor(1, 1, 1, 1)
 					end
 				end
 			end
 		end
 		
 		---UI
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		love.graphics.translate(0, -yoffset*scale)
 		if yoffset < 0 then
 			love.graphics.translate(0, yoffset*scale)
@@ -1049,20 +1049,20 @@ function game_draw()
 				local x = (width*16)/players/2 + (width*16)/players*(i-1)
 				if mariolivecount ~= false then
 					properprint("p" .. i .. " * " .. mariolives[i], (x-string.len("p" .. i .. " * " .. mariolives[i])*4+4)*scale, 25*scale)
-					love.graphics.setColor(mariocolors[i][1])
+					love.graphics.setColor(mariocolors[i][1]/255, mariocolors[i][2]/255, mariocolors[i][3]/255)
 					love.graphics.rectangle("fill", (x-string.len("p" .. i .. " * " .. mariolives[i])*4-3)*scale, 25*scale, 7*scale, 7*scale)
-					love.graphics.setColor(255, 255, 255, 255)
+					love.graphics.setColor(1, 1, 1, 1)
 				end
 			end
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--vines
 		for j, w in pairs(objects["vine"]) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--warpzonetext
 		if displaywarpzonetext then
 			properprint("welcome to warp zone!", (mapwidth-14-1/16-xscroll)*16*scale, 88*scale)
@@ -1071,31 +1071,31 @@ function game_draw()
 			end
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--platforms
 		for j, w in pairs(objects["platform"]) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--platforms
 		for j, w in pairs(objects["seesawplatform"]) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--seesaws
 		for j, w in pairs(seesaws) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--springs
 		for j, w in pairs(objects["spring"]) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--flag
 		if flagx then
 			love.graphics.draw(flagimg, math.floor((flagimgx-1-xscroll)*16*scale), ((flagimgy)*16-8)*scale, 0, scale, scale)
@@ -1104,7 +1104,7 @@ function game_draw()
 			end
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--axe
 		if axex then
 			love.graphics.draw(axeimg, axequads[coinframe], math.floor((axex-1-xscroll)*16*scale), (axey-1.5)*16*scale, 0, scale, scale)
@@ -1116,7 +1116,7 @@ function game_draw()
 			end
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--levelfinish text and toad
 		if levelfinished and levelfinishtype == "castle" then
 			if levelfinishedmisc2 == 1 then
@@ -1152,74 +1152,74 @@ function game_draw()
 			end
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--Fireworks
 		for j, w in pairs(fireworks) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--Buttons
 		for j, w in pairs(objects["button"]) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--Upfires
 		for j, w in pairs(objects["upfire"]) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--Pushbuttons
 		for j, w in pairs(objects["pushbutton"]) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--hardlight bridges
 		for j, w in pairs(objects["lightbridgebody"]) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--laser
 		for j, w in pairs(objects["laser"]) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--laserdetector
 		for j, w in pairs(objects["laserdetector"]) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--lightbridge
 		
 		for j, w in pairs(objects["lightbridge"]) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--Groundlights
 		for j, w in pairs(objects["groundlight"]) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--Faithplates
 		for j, w in pairs(objects["faithplate"]) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--Bubbles
 		for j, w in pairs(bubbles) do
 			w:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		--miniblocks
 		for i, v in pairs(miniblocks) do
 			v:draw()
@@ -1230,7 +1230,7 @@ function game_draw()
 			if j ~= "tile" then
 				for i, v in pairs(w) do
 					if v.drawable then
-						love.graphics.setColor(255, 255, 255)
+						love.graphics.setColor(1, 1, 1)
 						local dirscale
 						
 						if j == "player" then
@@ -1296,9 +1296,9 @@ function game_draw()
 						if type(v.graphic) == "table" then
 							for k = 1, #v.graphic do
 								if v.colors[k] then
-									love.graphics.setColor(v.colors[k])
+									love.graphics.setColor(v.colors[k][1] / 255, v.colors[k][2] / 255, v.colors[k][3] / 255)
 								else
-									love.graphics.setColor(255, 255, 255)
+									love.graphics.setColor(1, 1, 1)
 								end
 								love.graphics.draw(v.graphic[k], v.quad, math.floor(((v.x-xscroll)*16+v.offsetX)*scale), math.floor((v.y*16-v.offsetY)*scale), v.rotation, dirscale, horscale, v.quadcenterX, v.quadcenterY)
 							end
@@ -1339,7 +1339,7 @@ function game_draw()
 										if v.hats[i] == 1 then
 											love.graphics.setColor(v.colors[1])
 										else
-											love.graphics.setColor(255, 255, 255)
+											love.graphics.setColor(1, 1, 1)
 										end
 										if v.graphic == v.biggraphic or v.animationstate == "grow" then
 											love.graphics.draw(bighat[v.hats[i]].graphic, math.floor(((v.x-xscroll)*16+v.offsetX)*scale), math.floor(((v.y)*16-v.offsetY)*scale), v.rotation, dirscale, horscale, v.quadcenterX - bighat[v.hats[i]].x + offsets[1], v.quadcenterY - bighat[v.hats[i]].y + offsets[2] + yadd)
@@ -1353,7 +1353,7 @@ function game_draw()
 							end
 							
 							if v.graphic[0] then
-								love.graphics.setColor(255, 255, 255)
+								love.graphics.setColor(1, 1, 1)
 								love.graphics.draw(v.graphic[0], v.quad, math.floor(((v.x-xscroll)*16+v.offsetX)*scale), math.floor((v.y*16-v.offsetY)*scale), v.rotation, dirscale, horscale, v.quadcenterX, v.quadcenterY)
 							end
 						else
@@ -1395,7 +1395,7 @@ function game_draw()
 										if v.colors[k] then
 											love.graphics.setColor(v.colors[k])
 										else
-											love.graphics.setColor(255, 255, 255)
+											love.graphics.setColor(1, 1, 1)
 										end
 										love.graphics.draw(v.graphic[k], v.quad, math.ceil(((px-xscroll)*16+v.offsetX)*scale), math.ceil((py*16-v.offsetY)*scale), pr, dirscale, horscale, v.quadcenterX, v.quadcenterY)
 									end
@@ -1436,7 +1436,7 @@ function game_draw()
 												if v.hats[i] == 1 then
 													love.graphics.setColor(v.colors[1])
 												else
-													love.graphics.setColor(255, 255, 255)
+													love.graphics.setColor(1, 1, 1)
 												end
 												if v.graphic == v.biggraphic or v.animationstate == "grow" then
 													love.graphics.draw(bighat[v.hats[i]].graphic, math.floor(((px-xscroll)*16+v.offsetX)*scale), math.floor(((py)*16-v.offsetY)*scale), pr, dirscale, horscale, v.quadcenterX - bighat[v.hats[i]].x + offsets[1], v.quadcenterY - bighat[v.hats[i]].y + offsets[2] + yadd)
@@ -1450,7 +1450,7 @@ function game_draw()
 									end
 									
 									if v.graphic[0] then
-										love.graphics.setColor(255, 255, 255)
+										love.graphics.setColor(1, 1, 1)
 										love.graphics.draw(v.graphic[0], v.quad, math.floor(((px-xscroll)*16+v.offsetX)*scale), math.floor((py*16-v.offsetY)*scale), pr, dirscale, horscale, v.quadcenterX, v.quadcenterY)
 									end
 								else
@@ -1464,7 +1464,7 @@ function game_draw()
 			end
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		
 		--bowser
 		for j, w in pairs(objects["bowser"]) do
@@ -1537,9 +1537,9 @@ function game_draw()
 				if objects["player"][i].portal2X == false then
 				
 				else
-					love.graphics.setColor(255, 255, 255, 80 - math.abs(portalframe-3)*10)
+					love.graphics.setColor(1, 1, 1, (80 - math.abs(portalframe-3)*10)/255)
 					love.graphics.draw(portalglow, math.floor(((objects["player"][i].portal1X-1-xscroll)*16+offsetx)*scale), math.floor(((objects["player"][i].portal1Y-1)*16+offsety)*scale), rotation, scale, scale, 8, 20)
-					love.graphics.setColor(255, 255, 255, 255)
+					love.graphics.setColor(1, 1, 1, 1)
 				end
 				
 				love.graphics.setColor(unpack(objects["player"][i].portal1color))
@@ -1564,9 +1564,9 @@ function game_draw()
 				if objects["player"][i].portal1X == false then
 					
 				else
-					love.graphics.setColor(255, 255, 255, 80 - math.abs(portalframe-3)*10)
+					love.graphics.setColor(1, 1, 1, (80 - math.abs(portalframe-3)*10)/255)
 					love.graphics.draw(portalglow, math.floor(((objects["player"][i].portal2X-1-xscroll)*16+offsetx)*scale), math.floor(((objects["player"][i].portal2Y-1)*16+offsety)*scale), rotation, scale, scale, 8, 20)
-					love.graphics.setColor(255, 255, 255, 255)
+					love.graphics.setColor(1, 1, 1, 1)
 				end
 				
 				love.graphics.setColor(unpack(objects["player"][i].portal2color))
@@ -1574,7 +1574,7 @@ function game_draw()
 			end
 		end		
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		
 		--COINBLOCKANIMATION
 		for i, v in pairs(coinblockanimations) do
@@ -1609,7 +1609,7 @@ function game_draw()
 						portalpossible = false
 					end
 					
-					love.graphics.setColor(255, 255, 255, 255)
+					love.graphics.setColor(1, 1, 1, 1)
 					
 					local dist = math.sqrt(((x-xscroll)*16*scale - (sourcex-xscroll)*16*scale)^2 + ((y-.5)*16*scale - (sourcey-.5)*16*scale)^2)/16/scale
 					
@@ -1633,22 +1633,22 @@ function game_draw()
 							
 							
 							if portalpossible == false then
-								love.graphics.setColor(255, 0, 0, alpha)
+								love.graphics.setColor(1, 0, 0, alpha/255)
 							else
-								love.graphics.setColor(0, 255, 0, alpha)
+								love.graphics.setColor(0, 1, 0, alpha/255)
 							end
 						
 							love.graphics.draw(portaldotimg, math.floor(dotx-0.25*scale), math.floor(doty-0.25*scale), 0, scale, scale)
 						end
 					end
 				
-					love.graphics.setColor(255, 255, 255, 255)
+					love.graphics.setColor(1, 1, 1, 1)
 					
 					if cox ~= false then
 						if portalpossible == false then
-							love.graphics.setColor(255, 0, 0)
+							love.graphics.setColor(1, 0, 0)
 						else
-							love.graphics.setColor(0, 255, 0)
+							love.graphics.setColor(0, 1, 0)
 						end
 						
 						local rotation = 0
@@ -1670,7 +1670,7 @@ function game_draw()
 			v:draw()
 		end
 		
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		
 		--nothing to see here
 		for i, v in pairs(rainbooms) do
@@ -1687,7 +1687,7 @@ function game_draw()
 			if cox then
 				local dist = math.sqrt((v.x+v.width/2 - x)^2 + (v.y+v.height/2 - y)^2)
 				if dist <= minecraftrange then
-					love.graphics.setColor(0, 0, 0, 170)
+					love.graphics.setColor(0, 0, 0, 170/255)
 					love.graphics.rectangle("line", math.floor((cox-1-xscroll)*16*scale)-.5, (coy-1-.5)*16*scale-.5, 16*scale, 16*scale)
 				
 					if breakingblockX and (cox ~= breakingblockX or coy ~= breakingblockY) then
@@ -1709,18 +1709,18 @@ function game_draw()
 			end
 			--break animation
 			if breakingblockX then
-				love.graphics.setColor(255, 255, 255, 255)
+				love.graphics.setColor(1, 1, 1, 1)
 				local frame = math.ceil((breakingblockprogress/minecraftbreaktime)*10)
 				if frame ~= 0 then
 					love.graphics.draw(minecraftbreakimg, minecraftbreakquad[frame], (breakingblockX-1-xscroll)*16*scale, (breakingblockY-1.5)*16*scale, 0, scale, scale)
 				end
 			end
-			love.graphics.setColor(255, 255, 255, 255)
+			love.graphics.setColor(1, 1, 1, 1)
 			
 			--gui
 			love.graphics.draw(minecraftgui, (width*8-91)*scale, 202*scale, 0, scale, scale)
 			
-			love.graphics.setColor(255, 255, 255, 200)
+			love.graphics.setColor(1, 1, 1, 200/255)
 			for i = 1, 9 do
 				local t = inventory[i].t
 				
@@ -1735,7 +1735,7 @@ function game_draw()
 				end
 			end
 			
-			love.graphics.setColor(255, 255, 255, 255)
+			love.graphics.setColor(1, 1, 1, 1)
 			love.graphics.draw(minecraftselected, (width*8-92+(mccurrentblock-1)*20)*scale, 201*scale, 0, scale, scale)
 			
 			for i = 1, 9 do
@@ -1764,7 +1764,7 @@ function game_draw()
 	
 	--speed gradient
 	if speed < 1 then
-		love.graphics.setColor(255, 255, 255, 255-255*speed)
+		love.graphics.setColor(1, 1, 1, (255-255*speed)/255)
 		love.graphics.draw(gradientimg, 0, 0, 0, scale, scale)
 	end
 	
@@ -1774,24 +1774,24 @@ function game_draw()
 	love.graphics.translate(0, yoffset*scale)
 	
 	if testlevel then
-		love.graphics.setColor(255, 0, 0)
+		love.graphics.setColor(1, 0, 0)
 		properprint("testing level - press esc to return to editor", 0, 0)
 	end
 	
 	--pause menu
 	if pausemenuopen then
-		love.graphics.setColor(0, 0, 0, 100)
+		love.graphics.setColor(0, 0, 0, 100/255)
 		love.graphics.rectangle("fill", 0, 0, width*16*scale, 224*scale)
 		
 		love.graphics.setColor(0, 0, 0)
 		love.graphics.rectangle("fill", (width*8*scale)-50*scale, (112*scale)-75*scale, 100*scale, 150*scale)
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setColor(1, 1, 1)
 		drawrectangle(width*8-49, 112-74, 98, 148)
 		
 		for i = 1, #pausemenuoptions do
-			love.graphics.setColor(100, 100, 100, 255)
+			love.graphics.setColor(100/255, 100/255, 100/255, 1)
 			if pausemenuselected == i and not menuprompt and not desktopprompt then
-				love.graphics.setColor(255, 255, 255, 255)
+				love.graphics.setColor(1, 1, 1, 1)
 				properprint(">", (width*8*scale)-45*scale, (112*scale)-60*scale+(i-1)*25*scale)
 			end
 			properprint(pausemenuoptions[i], (width*8*scale)-35*scale, (112*scale)-60*scale+(i-1)*25*scale)
@@ -1806,65 +1806,65 @@ function game_draw()
 		end
 		
 		if menuprompt then
-			love.graphics.setColor(0, 0, 0, 255)
+			love.graphics.setColor(0, 0, 0, 1)
 			love.graphics.rectangle("fill", (width*8*scale)-100*scale, (112*scale)-25*scale, 200*scale, 50*scale)
-			love.graphics.setColor(255, 255, 255, 255)
+			love.graphics.setColor(1, 1, 1, 1)
 			drawrectangle((width*8)-99, 112-24, 198, 48)
 			properprint("quit to menu?", (width*8*scale)-string.len("quit to menu?")*4*scale, (112*scale)-10*scale)
 			if pausemenuselected2 == 1 then
 				properprint(">", (width*8*scale)-51*scale, (112*scale)+4*scale)
-				love.graphics.setColor(255, 255, 255, 255)
+				love.graphics.setColor(1, 1, 1, 1)
 				properprint("yes", (width*8*scale)-44*scale, (112*scale)+4*scale)
-				love.graphics.setColor(100, 100, 100, 255)
+				love.graphics.setColor(100/255, 100/255, 100/255, 1)
 				properprint("no", (width*8*scale)+28*scale, (112*scale)+4*scale) 
 			else
 				properprint(">", (width*8*scale)+20*scale, (112*scale)+4*scale)
-				love.graphics.setColor(100, 100, 100, 255)
+				love.graphics.setColor(100/255, 100/255, 100/255, 1)
 				properprint("yes", (width*8*scale)-44*scale, (112*scale)+4*scale)
-				love.graphics.setColor(255, 255, 255, 255)
+				love.graphics.setColor(1, 1, 1, 1)
 				properprint("no", (width*8*scale)+28*scale, (112*scale)+4*scale)
 			end
 		end
 		
 		if desktopprompt then
-			love.graphics.setColor(0, 0, 0, 255)
+			love.graphics.setColor(0, 0, 0, 1)
 			love.graphics.rectangle("fill", (width*8*scale)-100*scale, (112*scale)-25*scale, 200*scale, 50*scale)
-			love.graphics.setColor(255, 255, 255, 255)
+			love.graphics.setColor(1, 1, 1, 1)
 			drawrectangle((width*8)-99, 112-24, 198, 48)
 			properprint("quit to desktop?", (width*8*scale)-string.len("quit to desktop?")*4*scale, (112*scale)-10*scale)
 			if pausemenuselected2 == 1 then
 				properprint(">", (width*8*scale)-51*scale, (112*scale)+4*scale)
-				love.graphics.setColor(255, 255, 255, 255)
+				love.graphics.setColor(1, 1, 1, 1)
 				properprint("yes", (width*8*scale)-44*scale, (112*scale)+4*scale)
-				love.graphics.setColor(100, 100, 100, 255)
+				love.graphics.setColor(100/255, 100/255, 100/255, 1)
 				properprint("no", (width*8*scale)+28*scale, (112*scale)+4*scale)
 			else
 				properprint(">", (width*8*scale)+20*scale, (112*scale)+4*scale)
-				love.graphics.setColor(100, 100, 100, 255)
+				love.graphics.setColor(100/255, 100/255, 100/255, 1)
 				properprint("yes", (width*8*scale)-44*scale, (112*scale)+4*scale)
-				love.graphics.setColor(255, 255, 255, 255)
+				love.graphics.setColor(1, 1, 1, 1)
 				properprint("no", (width*8*scale)+28*scale, (112*scale)+4*scale)
 			end
 		end
 		
 		if suspendprompt then
-			love.graphics.setColor(0, 0, 0, 255)
+			love.graphics.setColor(0, 0, 0, 1)
 			love.graphics.rectangle("fill", (width*8*scale)-100*scale, (112*scale)-25*scale, 200*scale, 50*scale)
-			love.graphics.setColor(255, 255, 255, 255)
+			love.graphics.setColor(1, 1, 1, 1)
 			drawrectangle((width*8)-99, 112-24, 198, 48)
 			properprint("suspend game? this can", (width*8*scale)-string.len("suspend game? this can")*4*scale, (112*scale)-20*scale)
 			properprint("only be loaded once!", (width*8*scale)-string.len("only be loaded once!")*4*scale, (112*scale)-10*scale)
 			if pausemenuselected2 == 1 then
 				properprint(">", (width*8*scale)-51*scale, (112*scale)+4*scale)
-				love.graphics.setColor(255, 255, 255, 255)
+				love.graphics.setColor(1, 1, 1, 1)
 				properprint("yes", (width*8*scale)-44*scale, (112*scale)+4*scale)
-				love.graphics.setColor(100, 100, 100, 255)
+				love.graphics.setColor(100/255, 100/255, 100/255, 1)
 				properprint("no", (width*8*scale)+28*scale, (112*scale)+4*scale)
 			else
 				properprint(">", (width*8*scale)+20*scale, (112*scale)+4*scale)
-				love.graphics.setColor(100, 100, 100, 255)
+				love.graphics.setColor(100/255, 100/255, 100/255, 1)
 				properprint("yes", (width*8*scale)-44*scale, (112*scale)+4*scale)
-				love.graphics.setColor(255, 255, 255, 255)
+				love.graphics.setColor(1, 1, 1, 1)
 				properprint("no", (width*8*scale)+28*scale, (112*scale)+4*scale)
 			end
 		end
@@ -2134,7 +2134,7 @@ function startlevel(level)
 	end
 	
 	--background
-	love.graphics.setBackgroundColor(backgroundcolor[background])
+	love.graphics.setBackgroundColor(backgroundcolor[background][1] / 255, backgroundcolor[background][2] / 255, backgroundcolor[background][3] / 255)
 	
 	--check if it's a bonusstage (boooooooonus!)
 	if bonusstage then
