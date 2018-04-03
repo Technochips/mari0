@@ -3846,7 +3846,7 @@ end
 function playsound(sound)
 	if soundenabled then
 		sound:stop()
-		sound:rewind()
+		sound:seek(0)
 		sound:play()
 	end
 end

@@ -42,12 +42,12 @@ function love.load()
 	
 	--version check
 	local loveversion = string.format("%02d.%02d.%02d", love._version_major, love._version_minor, love._version_revision)
-	if loveversion < "00.10.01" then
-		error("You have an outdated version of Love! Get 0.10.1 or higher and retry.")
+	if loveversion < "11.00.00" then
+		error("You have an outdated version of Love! Get 11.0.0 or higher and retry.")
 	end
 	
-	iconimg = love.graphics.newImage("graphics/icon.png")
-	love.window.setIcon(iconimg:getData())
+	iconimg = love.image.newImageData("graphics/icon.png")
+	love.window.setIcon(iconimg)
 	
 	love.graphics.setDefaultFilter("nearest", "nearest")
 	
@@ -1009,7 +1009,7 @@ function loadconfig()
 		elseif s2[1] == "mouseowner" then
 			mouseowner = tonumber(s2[2])
 		elseif s2[1] == "mappack" then
-			mappackfileinfo = love.filesystem.getInfo("mappacks/" .. s2[2] .. "/")
+			local mappackfileinfo = love.filesystem.getInfo("mappacks/" .. s2[2] .. "/")
 			if mappackfileinfo ~= nil then
 				mappack = s2[2]
 			end

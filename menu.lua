@@ -2146,7 +2146,8 @@ function reset_mappacks()
 end
 
 function delete_mappack(pack)
-	if not love.filesystem.exists("mappacks/" .. pack .. "/") then
+	local fileinfo = love.filesystem.getInfo("mappacks/" .. pack .. "/")
+	if fileinfo == nil then
 		return false
 	end
 	
